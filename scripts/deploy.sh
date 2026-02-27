@@ -3,7 +3,7 @@ set -euo pipefail
 
 # colony deploy script
 # Usage:
-#   export $(cat .env | xargs) && curl -sSL https://raw.githubusercontent.com/PJ-NBA-472915/colony/main/scripts/deploy.sh | bash
+#   set -a && source .env && set +a && curl -sSL https://raw.githubusercontent.com/PJ-NBA-472915/colony-/main/scripts/deploy.sh | bash
 
 REPO="ghcr.io/${GITHUB_PROJECT}/colony:latest"
 
@@ -45,6 +45,8 @@ docker run -d \
     --restart unless-stopped \
     --cap-add NET_ADMIN \
     --device /dev/net/tun:/dev/net/tun \
+    -v colony-storage:/storage \
+    -v colony-home:/home/colony \
     -e SSH_PUBLIC_KEY="$SSH_PUBLIC_KEY" \
     -e ZEROTIER_NETWORK="$ZEROTIER_NETWORK" \
     "$REPO"

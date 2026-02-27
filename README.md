@@ -34,7 +34,7 @@ GITHUB_TOKEN=ghp_xxxxxxxxxxxx
 Then run:
 
 ```bash
-export $(cat .env | xargs) && curl -sSL https://raw.githubusercontent.com/PJ-NBA-472915/colony-/main/scripts/deploy.sh | bash
+set -a && source .env && set +a && curl -sSL https://raw.githubusercontent.com/PJ-NBA-472915/colony-/main/scripts/deploy.sh | bash
 ```
 
 This will authenticate with GHCR, pull the image, and start the container.
